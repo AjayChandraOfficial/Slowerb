@@ -1,0 +1,17 @@
+{
+  "migIndex": 1,
+  "data": [
+    {
+      "path": "App/assets/fonts/Gothic-Bold.ttf",
+      "sha1": "194388a12999c4d643ab58aeabec0a49535ebeeb"
+    },
+    {
+      "path": "App/assets/fonts/Gothic.ttf",
+      "sha1": "a2f9ca2ae529a6cc03cad88fefb0a0e45b7046f4"
+    },
+    {
+      "path": "App/assets/sounds/hw.mp3",
+      "sha1": "08a3f6ccf0e994f06fc4252b93710f2ece78d8b4"
+    }
+  ]
+}
