@@ -1,8 +1,13 @@
 import React, {useEffect, useRef} from 'react';
 import {Animated, View} from 'react-native';
 import styled from 'styled-components/native';
+import {noop} from '../utils/functions';
 
-const ProgressBar = () => {
+interface Props {
+  onLoadingComplete?: () => void;
+}
+
+const ProgressBar = ({onLoadingComplete = noop}: Props) => {
   const progress = useRef(new Animated.Value(0)).current;
 
   useEffect(() => {
@@ -14,7 +19,10 @@ const ProgressBar = () => {
       toValue: 1,
       duration: 8000, // 4 seconds
       useNativeDriver: false, // You can set this to true if supported
-    }).start();
+    }).start(() => {
+      progress.resetAnimation();
+      onLoadingComplete();
+    });
   };
 
   const widthInterpolation = progress.interpolate({

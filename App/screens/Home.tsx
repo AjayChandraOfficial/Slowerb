@@ -1,8 +1,8 @@
-import React, {useCallback, useState} from 'react';
+import {StackScreenProps} from '@react-navigation/stack';
+import React, {useCallback} from 'react';
 import {FlatList, PermissionsAndroid, StatusBar, View} from 'react-native';
-import styled from 'styled-components/native';
-import LinearGradient from 'react-native-linear-gradient';
-import {useSafeAreaInsets} from 'react-native-safe-area-context';
+import ReactNativeBlobUtil from 'react-native-blob-util';
+import DocumentPicker from 'react-native-document-picker';
 import {
   ArrowUpOnSquareIcon,
   BeakerIcon,
@@ -10,26 +10,28 @@ import {
   Cog6ToothIcon,
   MicrophoneIcon,
 } from 'react-native-heroicons/outline';
+import LinearGradient from 'react-native-linear-gradient';
+import {useSafeAreaInsets} from 'react-native-safe-area-context';
 import {useTheme} from 'styled-components';
+import styled from 'styled-components/native';
 import IconTextContainerButton from '../components/IconTextContainerButton';
 import PosterWithText from '../components/PosterWithText';
-import DocumentPicker, {
-  DocumentPickerResponse,
-} from 'react-native-document-picker';
-import {StackScreenProps} from '@react-navigation/stack';
 import {RootStackParamList} from '../navigation/RootStackParams';
-import ReactNativeBlobUtil from 'react-native-blob-util';
-import MusicPlayer from '../components/MusicPlayer';
 
 type Props = StackScreenProps<RootStackParamList, 'Home'>;
 
 export default function Home({navigation}: Props) {
   const insets = useSafeAreaInsets();
 
-  const navigateToUploadPreview = (audio: string) => {
+  const navigateToUploadPreview = (audio: string, name: string) => {
     navigation.navigate('UploadPreview', {
       audio,
+      name,
     });
+  };
+
+  const navigateToYoutubePreview = () => {
+    navigation.navigate('YoutubePreview');
   };
 
   return (
@@ -43,7 +45,10 @@ export default function Home({navigation}: Props) {
 
       <Header />
 
-      <UploadAudio navigateToUploadPreview={navigateToUploadPreview} />
+      <UploadAudio
+        navigateToUploadPreview={navigateToUploadPreview}
+        navigateToYoutubePreview={navigateToYoutubePreview}
+      />
 
       <RecentlyConverted />
 
@@ -95,13 +100,15 @@ function Header() {
 }
 
 interface UploadAudioProps {
-  navigateToUploadPreview: (audio: string) => void;
+  navigateToUploadPreview: (audio: string, name: string) => void;
+  navigateToYoutubePreview: () => void;
 }
 
-function UploadAudio({navigateToUploadPreview}: UploadAudioProps) {
+function UploadAudio({
+  navigateToUploadPreview,
+  navigateToYoutubePreview,
+}: UploadAudioProps) {
   //   const [fileResponse, setFileResponse] = useState<DocumentPickerResponse>();
-
-  const [audioBlob, setAudioBlob] = useState<any>();
 
   const handleDocumentSelection = useCallback(async () => {
     console.log('INSIDE HANDLE DOUCMENT SELECTION');
@@ -125,11 +132,12 @@ function UploadAudio({navigateToUploadPreview}: UploadAudioProps) {
       const audioPath = await ReactNativeBlobUtil.fs.stat(response.uri);
       // console.log(audioPath);
       // setAudioBlob(audioPath.path);
-      navigateToUploadPreview(audioPath.path);
+      navigateToUploadPreview(audioPath.path, response.name ?? 'Audio');
     } catch (err) {
       console.warn(err);
     }
   }, []);
+
   const uploadAnAudioData = [
     {
       text: 'Upload',
@@ -144,7 +152,7 @@ function UploadAudio({navigateToUploadPreview}: UploadAudioProps) {
     {
       text: 'Youtube Link',
       icon: <ArrowUpOnSquareIcon width={24} height={24} stroke={'#fff'} />,
-      onPress: handleDocumentSelection,
+      onPress: navigateToYoutubePreview,
     },
     {
       text: 'Sample Audio',
@@ -176,8 +184,6 @@ function UploadAudio({navigateToUploadPreview}: UploadAudioProps) {
         }}
         numColumns={2}
       />
-
-      {audioBlob && <MusicPlayer audioBlob={audioBlob} />}
     </View>
   );
 }

@@ -9,19 +9,38 @@ import Header from '../components/Header';
 import {noop} from '../utils/functions';
 import Button from '../components/Button';
 import {Spacer} from '../styles/StyledComponents';
+import InputWithIcon from '../components/InputWithIcon';
+import {theme} from '../styles/theme';
 
-type Props = StackScreenProps<RootStackParamList, 'UploadPreview'>;
+type Props = StackScreenProps<RootStackParamList, 'YoutubePreview'>;
 
-export default function UploadPreview({route}: Props) {
+export default function YoutubePreview({navigation}: Props) {
   const theme = useTheme();
-  // const {audio, name} = route.params;
+
+  const goBack = () => {
+    navigation.goBack();
+  };
+
   return (
-    <Container>
-      <Header title="Preview" onPressBack={noop} />
+    <Container
+      contentContainerStyle={{
+        paddingBottom: 100,
+      }}>
+      <Header title="Preview" onPressBack={goBack} />
+
+      <Spacer size={12} />
 
       {/* <MusicPlayer titleText={name} audioBlob={audio} /> */}
 
-      <MusicPlayer titleText="Sample" />
+      <InputWithIcon placeholder="Paste a link" />
+
+      <Spacer size={52} />
+
+      <MusicPlayer
+        titleText="5:30pm"
+        authorText="The Deli"
+        image="https://picsum.photos/400/450"
+      />
 
       <Spacer size={32} />
 
@@ -32,8 +51,18 @@ export default function UploadPreview({route}: Props) {
           justifyContent: 'center',
           gap: 24,
         }}>
-        <Button text="Cancel" type="secondary-small" width="100px" />
-        <Button text="Convert" type="primary-small" width="100px" />
+        <Button
+          text="Cancel"
+          type="secondary-small"
+          width="100px"
+          onPress={() => navigation.navigate('Home')}
+        />
+        <Button
+          text="Convert"
+          type="primary-small"
+          width="100px"
+          onPress={() => navigation.navigate('Converting')}
+        />
       </View>
 
       <StatusBar barStyle="light-content" backgroundColor={theme.background} />
@@ -41,7 +70,7 @@ export default function UploadPreview({route}: Props) {
   );
 }
 
-const Container = styled.View`
+const Container = styled.ScrollView`
   flex: 1;
   background-color: ${props => props.theme.background};
   padding-horizontal: 24px;

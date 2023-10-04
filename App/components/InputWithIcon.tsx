@@ -1,11 +1,14 @@
-import {TextInput, View} from 'react-native';
 import {PaperAirplaneIcon} from 'react-native-heroicons/outline';
 import styled from 'styled-components/native';
 
-export default function InputWithIcon() {
+interface Props {
+  placeholder?: string;
+}
+
+export default function InputWithIcon({placeholder = 'Enter input'}: Props) {
   return (
     <RelativeContainer>
-      <Input placeholder="Paste a link" placeholderTextColor="#8A9A9D"></Input>
+      <Input placeholder={placeholder} placeholderTextColor="#8A9A9D"></Input>
 
       <IconContainer
         style={{

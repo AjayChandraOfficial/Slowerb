@@ -98,9 +98,15 @@ export default function MusicPlayer({
     <View>
       {image && (
         <Image
+          // height={330}
+          // width={100}
           height={330}
-          width={100}
-          source={require('../assets/images/sample.png')}
+          style={{
+            width: '100%',
+          }}
+          source={{
+            uri: image,
+          }}
         />
       )}
       {titleText && <TitleText>{titleText}</TitleText>}

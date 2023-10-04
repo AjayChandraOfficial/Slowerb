@@ -8,6 +8,8 @@ import {RootStackParamList} from './RootStackParams';
 import UploadPreview from '../screens/UploadPreview';
 import {ArrowLeftIcon} from 'react-native-heroicons/outline';
 import {TouchableHighlight} from 'react-native-gesture-handler';
+import YoutubePreview from '../screens/YoutubePreview';
+import Converting from '../screens/Converting';
 
 const Stack = createStackNavigator<RootStackParamList>();
 
@@ -15,7 +17,7 @@ export function RootNavigation() {
   const theme = useTheme();
   return (
     <Stack.Navigator
-      initialRouteName="UploadPreview"
+      initialRouteName="Converting"
       screenOptions={{
         headerStyle: {
           backgroundColor: theme.background,
@@ -57,6 +59,20 @@ export function RootNavigation() {
       <Stack.Screen
         name="UploadPreview"
         component={UploadPreview}
+        options={{
+          headerShown: false,
+        }}
+      />
+      <Stack.Screen
+        name="YoutubePreview"
+        component={YoutubePreview}
+        options={{
+          headerShown: false,
+        }}
+      />
+      <Stack.Screen
+        name="Converting"
+        component={Converting}
         options={{
           headerShown: false,
         }}
