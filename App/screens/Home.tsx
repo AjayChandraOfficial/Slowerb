@@ -17,6 +17,7 @@ import styled from 'styled-components/native';
 import IconTextContainerButton from '../components/IconTextContainerButton';
 import PosterWithText from '../components/PosterWithText';
 import {RootStackParamList} from '../navigation/RootStackParams';
+import YoutubeSvg from '../assets/svg/Youtube';
 
 type Props = StackScreenProps<RootStackParamList, 'Home'>;
 
@@ -50,7 +51,7 @@ export default function Home({navigation}: Props) {
         navigateToYoutubePreview={navigateToYoutubePreview}
       />
 
-      <RecentlyConverted />
+      {/* <RecentlyConverted /> */}
 
       <PopularSlowerbs />
 
@@ -144,21 +145,21 @@ function UploadAudio({
       icon: <ArrowUpOnSquareIcon width={24} height={24} stroke={'#fff'} />,
       onPress: handleDocumentSelection,
     },
-    {
-      text: 'Record',
-      icon: <MicrophoneIcon width={24} height={24} stroke={'#fff'} />,
-      onPress: handleDocumentSelection,
-    },
+    // {
+    //   text: 'Record',
+    //   icon: <MicrophoneIcon width={24} height={24} stroke={'#fff'} />,
+    //   onPress: handleDocumentSelection,
+    // },
     {
       text: 'Youtube Link',
-      icon: <ArrowUpOnSquareIcon width={24} height={24} stroke={'#fff'} />,
+      icon: <YoutubeSvg />,
       onPress: navigateToYoutubePreview,
     },
-    {
-      text: 'Sample Audio',
-      icon: <BeakerIcon width={24} height={24} stroke={'#fff'} />,
-      onPress: handleDocumentSelection,
-    },
+    // {
+    //   text: 'Sample Audio',
+    //   icon: <BeakerIcon width={24} height={24} stroke={'#fff'} />,
+    //   onPress: handleDocumentSelection,
+    // },
   ];
   return (
     <View style={{marginTop: 24}}>

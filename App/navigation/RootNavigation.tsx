@@ -2,14 +2,12 @@ import {createStackNavigator} from '@react-navigation/stack';
 import {useTheme} from 'styled-components';
 
 import Components from '../screens/Components';
-import Welcome from '../screens/Welcome';
-import Home from '../screens/Home';
-import {RootStackParamList} from './RootStackParams';
-import UploadPreview from '../screens/UploadPreview';
-import {ArrowLeftIcon} from 'react-native-heroicons/outline';
-import {TouchableHighlight} from 'react-native-gesture-handler';
-import YoutubePreview from '../screens/YoutubePreview';
 import Converting from '../screens/Converting';
+import Home from '../screens/Home';
+import UploadPreview from '../screens/UploadPreview';
+import Welcome from '../screens/Welcome';
+import YoutubePreview from '../screens/YoutubePreview';
+import {RootStackParamList} from './RootStackParams';
 
 const Stack = createStackNavigator<RootStackParamList>();
 
@@ -17,7 +15,7 @@ export function RootNavigation() {
   const theme = useTheme();
   return (
     <Stack.Navigator
-      initialRouteName="Converting"
+      initialRouteName="Welcome"
       screenOptions={{
         headerStyle: {
           backgroundColor: theme.background,

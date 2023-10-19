@@ -12,7 +12,7 @@ import {Spacer} from '../styles/StyledComponents';
 
 type Props = StackScreenProps<RootStackParamList, 'UploadPreview'>;
 
-export default function UploadPreview({route}: Props) {
+export default function UploadPreview({route, navigation}: Props) {
   const theme = useTheme();
   // const {audio, name} = route.params;
   return (
@@ -32,8 +32,22 @@ export default function UploadPreview({route}: Props) {
           justifyContent: 'center',
           gap: 24,
         }}>
-        <Button text="Cancel" type="secondary-small" width="100px" />
-        <Button text="Convert" type="primary-small" width="100px" />
+        <Button
+          text="Cancel"
+          type="secondary-small"
+          width="100px"
+          onPress={() => {
+            navigation.navigate('Home');
+          }}
+        />
+        <Button
+          text="Convert"
+          type="primary-small"
+          width="100px"
+          onPress={() => {
+            navigation.navigate('Converting');
+          }}
+        />
       </View>
 
       <StatusBar barStyle="light-content" backgroundColor={theme.background} />

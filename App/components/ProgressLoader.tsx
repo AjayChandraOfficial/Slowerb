@@ -12,6 +12,10 @@ const ProgressBar = ({onLoadingComplete = noop}: Props) => {
 
   useEffect(() => {
     animateProgress();
+
+    return () => {
+      progress.resetAnimation();
+    };
   }, []);
 
   const animateProgress = () => {
@@ -20,7 +24,6 @@ const ProgressBar = ({onLoadingComplete = noop}: Props) => {
       duration: 8000, // 4 seconds
       useNativeDriver: false, // You can set this to true if supported
     }).start(() => {
-      progress.resetAnimation();
       onLoadingComplete();
     });
   };
